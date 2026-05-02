@@ -1,18 +1,20 @@
 import React, { useState } from 'react'
 import { X, Plus, Brain, Shield, AlertTriangle, Settings, Eye, Save } from 'lucide-react'
 import { Policy } from './PolicyTable'
+import type { DeploymentMode } from '../types/deploymentMode'
 
 interface CreatePolicyModalProps {
   onClose: () => void
   onPolicyCreated?: (policyData: Policy) => void
+  deploymentMode: DeploymentMode
 }
 
-const CreatePolicyModal = ({ onClose, onPolicyCreated }: CreatePolicyModalProps) => {
+const CreatePolicyModal = ({ onClose, onPolicyCreated, deploymentMode }: CreatePolicyModalProps) => {
   const [currentStep, setCurrentStep] = useState(1)
   const [policyData, setPolicyData] = useState({
     name: '',
     description: '',
-    mode: 'enterprise',
+    mode: deploymentMode,
     inputTypes: [] as string[],
     models: [] as string[],
     riskThreshold: 75,

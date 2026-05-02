@@ -1,21 +1,28 @@
-import React, { useMemo, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import { X, Download, Calendar, Filter, CheckCircle, Loader2, FileText, Database, Activity, Shield, Eye } from 'lucide-react'
+import type { DeploymentMode } from '../types/deploymentMode'
+import { deploymentModeLabel } from '../data/integrationModeData'
 
 interface ExportModalProps {
   onClose: () => void
+  deploymentMode: DeploymentMode
 }
 
-const ExportModal = ({ onClose }: ExportModalProps) => {
+const ExportModal = ({ onClose, deploymentMode }: ExportModalProps) => {
   const [selectedDataTypes, setSelectedDataTypes] = useState<string[]>(['Policy Data'])
   const [exportFormat, setExportFormat] = useState('CSV')
   const [dateRange, setDateRange] = useState('last-30-days')
   const [customDateStart, setCustomDateStart] = useState('')
   const [customDateEnd, setCustomDateEnd] = useState('')
-  const [modeFilter, setModeFilter] = useState('all')
+  const [modeFilter, setModeFilter] = useState(deploymentMode)
   const [riskLevelFilter, setRiskLevelFilter] = useState('all')
   const [isExporting, setIsExporting] = useState(false)
   const [exportSuccess, setExportSuccess] = useState(false)
   const [exportError, setExportError] = useState('')
+
+  useEffect(() => {
+    setModeFilter(deploymentMode)
+  }, [deploymentMode])
 
   const dataTypes = [
     {
@@ -63,7 +70,45 @@ const ExportModal = ({ onClose }: ExportModalProps) => {
       bgColor: 'bg-primary/10',
       borderColor: 'border-primary/20',
       isNew: true
-    }
+    },
+    ...(deploymentMode === 'government'
+      ? [
+          {
+            id: 'compliance-pack',
+            name: 'Compliance & chain-of-custody pack',
+            description: 'Agency-ready bundle: signatures, retention tags, and handoff metadata',
+            icon: Shield,
+            color: 'text-red-700',
+            bgColor: 'bg-red-50',
+            borderColor: 'border-red-200',
+            isNew: false
+          }
+        ]
+      : deploymentMode === 'enterprise'
+        ? [
+            {
+              id: 'brand-audit',
+              name: 'Brand & workforce audit bundle',
+              description: 'Exports moderation queue, internal comms flags, and API partner decisions',
+              icon: Activity,
+              color: 'text-green-700',
+              bgColor: 'bg-green-50',
+              borderColor: 'border-green-200',
+              isNew: false
+            }
+          ]
+        : [
+            {
+              id: 'personal-summary',
+              name: 'Personal safety summary',
+              description: 'Human-readable recap of alerts, device scans, and blocked content',
+              icon: FileText,
+              color: 'text-blue-700',
+              bgColor: 'bg-blue-50',
+              borderColor: 'border-blue-200',
+              isNew: false
+            }
+          ])
   ]
 
   const toggleDataType = (dataType: string) => {
@@ -107,6 +152,7 @@ const ExportModal = ({ onClose }: ExportModalProps) => {
       await new Promise(resolve => setTimeout(resolve, 1200))
       
       const exportData = {
+        deploymentMode,
         dataTypes: selectedDataTypes,
         format: exportFormat,
         dateRange: dateRange === 'custom' ? { start: customDateStart, end: customDateEnd } : dateRange,
@@ -116,7 +162,7 @@ const ExportModal = ({ onClose }: ExportModalProps) => {
         totalRecords: generatedRecords
       }
 
-      const filename = `guardian-ai-export-${Date.now()}.${exportFormat.toLowerCase()}`
+      const filename = `guardian-ai-${deploymentMode}-export-${Date.now()}.${exportFormat.toLowerCase()}`
       const content =
         exportFormat === 'JSON'
           ? JSON.stringify(exportData, null, 2)
@@ -170,7 +216,9 @@ const ExportModal = ({ onClose }: ExportModalProps) => {
           <div className="flex items-center justify-between">
             <div>
               <h2 className="text-xl font-semibold text-textPrimary">Export Data</h2>
-              <p className="text-textSecondary">Select data and format to export from Guardian AI system</p>
+              <p className="text-textSecondary">
+                {deploymentModeLabel(deploymentMode)} workspace — bundles and filters default to this deployment mode (same as Integrations).
+              </p>
             </div>
             <button 
               onClick={onClose}
@@ -350,7 +398,12 @@ const ExportModal = ({ onClose }: ExportModalProps) => {
           <div className="bg-sectionBg rounded-xl p-4 border border-borderLight">
             <h4 className="font-semibold text-textPrimary mb-3">System Integration</h4>
             <p className="text-sm text-textSecondary mb-3">
-              The Export Data System connects directly to:
+              {deploymentMode === 'individual' &&
+                'Exports include personal device feeds, linked social platforms, and Individual webhooks from Integrations.'}
+              {deploymentMode === 'enterprise' &&
+                'Exports include CMS/API connectors, workforce tools, Enterprise webhooks, and moderation queues.'}
+              {deploymentMode === 'government' &&
+                'Exports include secure feeds, agency handoff fields, Government webhooks, and chain-of-custody metadata.'}
             </p>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
               <div className="flex items-center space-x-2">

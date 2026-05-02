@@ -1,6 +1,8 @@
 import React, { useMemo, useState } from 'react'
 import { Search, Filter, Settings } from 'lucide-react'
 import ManagePolicyModal from './ManagePolicyModal'
+import type { DeploymentMode } from '../types/deploymentMode'
+import { integrationModeData, deploymentModeLabel } from '../data/integrationModeData'
 
 export interface Policy {
   id: number
@@ -17,9 +19,34 @@ export interface Policy {
 interface PolicyTableProps {
   policies: Policy[]
   onUpdatePolicy: (policy: Policy) => void
+  deploymentMode: DeploymentMode
 }
 
-const PolicyTable = ({ policies, onUpdatePolicy }: PolicyTableProps) => {
+const modeHeaderCopy: Record<
+  DeploymentMode,
+  { title: string; description: string; bannerClass: string; bannerTitle: string }
+> = {
+  individual: {
+    title: 'Personal policy enforcement',
+    description: 'Policies scoped to Individual mode — accounts, devices, and alerts from your Integrations view.',
+    bannerClass: 'bg-blue-50 border-blue-200 text-blue-900',
+    bannerTitle: 'Individual focus'
+  },
+  enterprise: {
+    title: 'Enterprise policy enforcement',
+    description: 'Policies for platforms, workforce tools, and APIs connected under Enterprise in Integrations.',
+    bannerClass: 'bg-green-50 border-green-200 text-green-900',
+    bannerTitle: 'Enterprise focus'
+  },
+  government: {
+    title: 'Government policy enforcement',
+    description: 'High-priority policies aligned to national monitoring, feeds, and agency handoffs from Integrations.',
+    bannerClass: 'bg-red-50 border-red-200 text-red-900',
+    bannerTitle: 'Government focus'
+  }
+}
+
+const PolicyTable = ({ policies, onUpdatePolicy, deploymentMode }: PolicyTableProps) => {
   const [searchTerm, setSearchTerm] = useState('')
   const [automationFilter, setAutomationFilter] = useState<'all' | 'Fully Automated' | 'Semi-Automated'>('all')
   const [managePolicyId, setManagePolicyId] = useState<number | null>(null)
@@ -54,13 +81,28 @@ const PolicyTable = ({ policies, onUpdatePolicy }: PolicyTableProps) => {
     ? policies.find((p) => p.id === managePolicyId)
     : undefined
 
+  const header = modeHeaderCopy[deploymentMode]
+  const modeGoal =
+    deploymentMode === 'government'
+      ? integrationModeData.government.goal
+      : deploymentMode === 'enterprise'
+        ? integrationModeData.enterprise.goal
+        : integrationModeData.individual.goal
+
   return (
     <div className="bg-card rounded-xl border border-border overflow-hidden">
       <div className="p-6 border-b border-border">
+        <div
+          className={`mb-4 rounded-lg border px-4 py-3 text-sm ${header.bannerClass}`}
+        >
+          <span className="font-semibold">{header.bannerTitle} · {deploymentModeLabel(deploymentMode)}</span>
+          <span className="mx-2 opacity-60">|</span>
+          <span className="opacity-90">{modeGoal}</span>
+        </div>
         <div className="flex items-center justify-between mb-4">
           <div>
-            <h2 className="text-xl font-semibold text-textPrimary">Active Policy Enforcement</h2>
-            <p className="text-textSecondary">Real-time AI model decisions and enforcement actions</p>
+            <h2 className="text-xl font-semibold text-textPrimary">{header.title}</h2>
+            <p className="text-textSecondary">{header.description}</p>
           </div>
           <div className="flex items-center space-x-3">
             <div className="relative">
