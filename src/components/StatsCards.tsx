@@ -24,8 +24,8 @@ const StatsCards = ({ deploymentMode, policies }: StatsCardsProps) => {
       return [
         {
           icon: Shield,
-          iconColor: 'text-accent',
-          iconBg: 'bg-accent/10',
+          iconColor: 'text-primary',
+          iconBg: 'bg-primary/10',
           badge: `${paused} paused`,
           badgeColor: 'bg-blue-100 text-blue-800',
           number: String(active),
@@ -69,8 +69,8 @@ const StatsCards = ({ deploymentMode, policies }: StatsCardsProps) => {
       return [
         {
           icon: Shield,
-          iconColor: 'text-accent',
-          iconBg: 'bg-accent/10',
+          iconColor: 'text-primary',
+          iconBg: 'bg-primary/10',
           badge: `${active} live`,
           badgeColor: 'bg-green-100 text-green-800',
           number: String(active),
@@ -113,8 +113,8 @@ const StatsCards = ({ deploymentMode, policies }: StatsCardsProps) => {
     return [
       {
         icon: Shield,
-        iconColor: 'text-accent',
-        iconBg: 'bg-accent/10',
+        iconColor: 'text-primary',
+        iconBg: 'bg-primary/10',
         badge: `${active} mission-critical`,
         badgeColor: 'bg-red-100 text-red-800',
         number: String(active),
@@ -159,7 +159,7 @@ const StatsCards = ({ deploymentMode, policies }: StatsCardsProps) => {
       {stats.map((stat, index) => (
         <div
           key={index}
-          className="bg-cardBg rounded-xl p-6 border border-borderLight shadow-card hover:shadow-card-hover transition-all duration-250"
+          className="rounded-xl border border-borderLight bg-cardBg p-6 shadow-card transition-shadow duration-300 ease-out hover:shadow-card-hover"
         >
           <div className="flex items-start justify-between mb-4">
             <div className={`w-12 h-12 ${stat.iconBg} rounded-lg flex items-center justify-center`}>

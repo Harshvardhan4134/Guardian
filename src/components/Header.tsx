@@ -48,7 +48,7 @@ const Header = ({
           <button
             type="button"
             onClick={onHomeClick}
-            className="inline-flex items-center gap-1.5 border border-white/20 text-white px-3 py-2 rounded-lg hover:bg-white/10 transition-all duration-250 text-sm"
+            className="inline-flex items-center gap-1.5 rounded-lg border border-white/20 px-3 py-2 text-sm text-white transition-all duration-300 ease-out hover:bg-white/10"
           >
             <Home className="h-4 w-4 shrink-0" aria-hidden />
             Home
@@ -56,21 +56,21 @@ const Header = ({
           <button
             type="button"
             onClick={onExportClick}
-            className="border border-white/20 text-white px-3 sm:px-4 py-2 rounded-lg hover:bg-white/10 transition-all duration-250 text-sm"
+            className="rounded-lg border border-white/20 px-3 py-2 text-sm text-white transition-all duration-300 ease-out hover:bg-white/10 sm:px-4"
           >
             Export Data
           </button>
           <button
             type="button"
             onClick={onIntegrationsClick}
-            className="border border-white/20 text-white px-3 sm:px-4 py-2 rounded-lg hover:bg-white/10 transition-all duration-250 text-sm"
+            className="rounded-lg border border-white/20 px-3 py-2 text-sm text-white transition-all duration-300 ease-out hover:bg-white/10 sm:px-4"
           >
             Integrations
           </button>
           <button
             type="button"
             onClick={onCreatePolicyClick}
-            className="bg-accent text-white px-3 sm:px-4 py-2 rounded-lg hover:bg-accentHover transition-all duration-250 text-sm font-medium"
+            className="rounded-lg bg-white px-3 py-2 text-sm font-semibold text-primary shadow-sm transition-all duration-300 ease-out hover:bg-white/90 sm:px-4"
           >
             Create Policy
           </button>

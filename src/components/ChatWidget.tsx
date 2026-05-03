@@ -126,7 +126,7 @@ const ChatWidget = () => {
                 className={`p-2 rounded-lg transition-colors ${
                   isRecording
                     ? 'bg-red-500 text-white animate-pulse'
-                    : 'bg-primary text-white hover:bg-teal-600'
+                    : 'bg-primary text-white hover:bg-primaryHover'
                 }`}
                 title={isRecording ? 'Stop Recording' : 'Start Voice Recording'}
               >
@@ -137,7 +137,7 @@ const ChatWidget = () => {
               <button
                 onClick={handleSendMessage}
                 disabled={!message.trim()}
-                className="bg-primary text-white p-2 rounded-lg hover:bg-teal-600 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                className="rounded-lg bg-primary p-2 text-white transition-colors duration-300 ease-out hover:bg-primaryHover disabled:cursor-not-allowed disabled:opacity-50"
                 title="Send Message"
               >
                 <Send className="w-4 h-4" />

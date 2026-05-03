@@ -128,9 +128,9 @@ export const IndividualModeContent = ({
   return (
     <div className="space-y-8">
       {/* Goal */}
-      <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
-        <h3 className="font-semibold text-blue-800 mb-2">Goal: Personal Device and Account Safety</h3>
-        <p className="text-blue-700">{modeData.goal}</p>
+      <div className="rounded-lg border border-borderLight bg-sectionBg p-4">
+        <h3 className="mb-2 font-semibold text-textPrimary">Goal: Personal device and account safety</h3>
+        <p className="text-sm leading-relaxed text-textBody">{modeData.goal}</p>
       </div>
 
       {/* Connected Platforms */}
@@ -231,7 +231,10 @@ export const IndividualModeContent = ({
         <h3 className="text-xl font-semibold text-textPrimary mb-4">Individual Actions</h3>
         <div className="flex flex-wrap gap-2">
           {modeData.actions.map((action: string, index: number) => (
-            <span key={index} className="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">
+            <span
+              key={index}
+              className="rounded-full border border-borderLight bg-white px-3 py-1 text-sm text-textBody"
+            >
               {action}
             </span>
           ))}
@@ -400,9 +403,9 @@ export const EnterpriseModeContent = ({
   return (
     <div className="space-y-8">
       {/* Goal */}
-      <div className="bg-green-50 border border-green-200 rounded-lg p-4">
-        <h3 className="font-semibold text-green-800 mb-2">Goal: Platform Moderation & Brand Safety</h3>
-        <p className="text-green-700">{modeData.goal}</p>
+      <div className="rounded-lg border border-borderLight bg-sectionBg p-4">
+        <h3 className="mb-2 font-semibold text-textPrimary">Goal: Platform moderation &amp; brand safety</h3>
+        <p className="text-sm leading-relaxed text-textBody">{modeData.goal}</p>
       </div>
 
       {/* Platform Integrations */}
@@ -661,9 +664,9 @@ export const GovernmentModeContent = ({
   return (
     <div className="space-y-8">
       {/* Goal */}
-      <div className="bg-red-50 border border-red-200 rounded-lg p-4">
-        <h3 className="font-semibold text-red-800 mb-2">Goal: Threat Detection & National Security</h3>
-        <p className="text-red-700">{modeData.goal}</p>
+      <div className="rounded-lg border border-borderLight bg-sectionBg p-4">
+        <h3 className="mb-2 font-semibold text-textPrimary">Goal: Threat detection &amp; national security</h3>
+        <p className="text-sm leading-relaxed text-textBody">{modeData.goal}</p>
       </div>
 
       {/* System Connections */}

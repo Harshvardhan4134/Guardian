@@ -32,7 +32,7 @@ export const WebhooksSection = ({
         </div>
         <button 
           onClick={onAddWebhook}
-          className="bg-primary text-white px-4 py-2 rounded-lg hover:bg-teal-600 transition-colors flex items-center space-x-2"
+          className="flex items-center space-x-2 rounded-lg bg-primary px-4 py-2 text-white transition-colors duration-300 ease-out hover:bg-primaryHover"
         >
           <Plus className="w-4 h-4" />
           <span>Add Webhook</span>

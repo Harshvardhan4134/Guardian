@@ -562,7 +562,7 @@ const CreatePolicyModal = ({ onClose, onPolicyCreated, deploymentMode }: CreateP
                 </button>
                 <button 
                   onClick={handleSubmit}
-                  className="bg-primary text-white px-6 py-2 rounded-lg hover:bg-teal-600 transition-colors flex items-center space-x-2"
+                  className="flex items-center space-x-2 rounded-lg bg-primary px-6 py-2 text-white transition-colors duration-300 ease-out hover:bg-primaryHover"
                 >
                   <Save className="w-4 h-4" />
                   <span>Save Policy</span>
@@ -571,7 +571,7 @@ const CreatePolicyModal = ({ onClose, onPolicyCreated, deploymentMode }: CreateP
             ) : (
               <button 
                 onClick={handleNext}
-                className="bg-primary text-white px-4 py-2 rounded-lg hover:bg-teal-600 transition-colors"
+                className="rounded-lg bg-primary px-4 py-2 text-white transition-colors duration-300 ease-out hover:bg-primaryHover"
               >
                 Next
               </button>

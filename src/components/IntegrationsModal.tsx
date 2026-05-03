@@ -144,8 +144,8 @@ const IntegrationsModal = ({ onClose, initialMode = 'individual' }: Integrations
     return [
     {
       icon: Wifi,
-      iconColor: 'text-accent',
-      iconBg: 'bg-accent/10',
+      iconColor: 'text-primary',
+      iconBg: 'bg-primary/10',
       number: String(connectedCorePlatforms + connectedCustom),
       title: 'Active Connections',
       subtitle: 'Total number of live integrations'

@@ -41,7 +41,7 @@ const PlanSelectionPanel = ({
                 role="tab"
                 aria-selected={selected}
                 onClick={() => onSegmentChange(mode)}
-                className={`rounded-full px-4 sm:px-6 py-2.5 text-sm font-semibold transition-all duration-250 ${
+                className={`rounded-full px-4 py-2.5 text-sm font-semibold transition-all duration-300 ease-out sm:px-6 ${
                   selected ? 'bg-primary text-white shadow-card' : 'text-textSecondary hover:text-textPrimary'
                 }`}
               >
@@ -62,8 +62,8 @@ const PlanSelectionPanel = ({
           return (
             <div
               key={tier.id}
-              className={`relative flex flex-col rounded-2xl border bg-background p-6 shadow-card transition-all duration-250 ${
-                isPopular ? 'border-accent ring-2 ring-accent/30 lg:scale-[1.02] z-[1]' : 'border-borderLight'
+              className={`relative z-[1] flex flex-col rounded-2xl border border-borderLight bg-cardBg p-6 shadow-card transition-shadow duration-300 ease-out hover:shadow-card-hover ${
+                isPopular ? 'ring-1 ring-primary/20 lg:ring-2' : ''
               }`}
             >
               {isPopular && (
@@ -72,23 +72,23 @@ const PlanSelectionPanel = ({
                 </div>
               )}
 
-              <div className="flex items-start justify-between gap-3 mb-4">
+              <div className="mb-4 flex items-start justify-between gap-3">
                 <div>
-                  <h3 className="text-xl font-semibold text-textPrimary">{tier.name}</h3>
-                  <p className="text-sm text-textSecondary mt-1">{tier.subtitle}</p>
+                  <h3 className="text-xl font-semibold tracking-tight text-textPrimary">{tier.name}</h3>
+                  <p className="mt-1 text-sm text-textSecondary">{tier.subtitle}</p>
                 </div>
-                <span className="rounded-lg bg-accent/10 p-2 text-accent shrink-0">
+                <span className="shrink-0 rounded-lg bg-primary/10 p-2 text-primary">
                   <Icon className="h-5 w-5" aria-hidden />
                 </span>
               </div>
 
-              <p className="text-2xl sm:text-3xl font-bold text-textPrimary tracking-tight mb-6">
+              <p className="mb-6 text-2xl font-bold tracking-tight text-textPrimary sm:text-3xl">
                 {tier.priceLabel}
               </p>
 
-              <ul className="space-y-3 flex-1 mb-6">
+              <ul className="mb-6 flex-1 space-y-3">
                 {tier.features.map((feature) => (
-                  <li key={feature} className="flex items-start gap-3 text-sm text-textPrimary">
+                  <li key={feature} className="flex items-start gap-3 text-sm text-textBody">
                     <Check className="h-5 w-5 shrink-0 text-emerald-600 mt-0.5" aria-hidden />
                     <span>{feature}</span>
                   </li>
@@ -96,16 +96,16 @@ const PlanSelectionPanel = ({
               </ul>
 
               {isCurrent && (
-                <p className="text-center text-xs font-medium text-accent mb-3">Current plan</p>
+                <p className="mb-3 text-center text-xs font-semibold text-primary">Current plan</p>
               )}
 
               <button
                 type="button"
                 onClick={() => onConfirmTier(segment, tier.id)}
-                className={`mt-auto w-full inline-flex items-center justify-center gap-2 rounded-xl px-4 py-3 text-sm font-semibold transition-all duration-250 ${
+                className={`mt-auto inline-flex w-full items-center justify-center gap-2 rounded-xl px-4 py-3 text-sm font-semibold transition-all duration-300 ease-out ${
                   isPopular
                     ? 'bg-primary text-white hover:bg-primaryHover'
-                    : 'border border-border bg-background text-textPrimary hover:bg-sectionBg'
+                    : 'border border-borderLight bg-white text-textPrimary hover:bg-sectionBg'
                 }`}
               >
                 Get Started

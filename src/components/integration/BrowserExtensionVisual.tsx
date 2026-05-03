@@ -28,9 +28,9 @@ const BrowserExtensionVisual = () => {
           {browserItem('/browsers/safari.svg', 'Safari')}
         </div>
       </div>
-      <div className="flex items-center justify-center gap-2 rounded-full border border-accent/20 bg-accent/[0.07] px-4 py-2.5 shadow-sm">
-        <Puzzle className="h-4 w-4 shrink-0 text-accent" aria-hidden />
-        <span className="text-center text-xs font-semibold leading-snug text-textPrimary sm:text-sm">
+      <div className="flex items-center justify-center gap-2 rounded-full border border-primary/15 bg-primary/[0.06] px-4 py-2.5 shadow-sm">
+        <Puzzle className="h-4 w-4 shrink-0 text-primary" aria-hidden />
+        <span className="text-center text-xs font-semibold leading-snug text-textBody sm:text-sm">
           Guardian browser extension
         </span>
       </div>

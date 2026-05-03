@@ -35,7 +35,7 @@ const LandingScreen = ({
             <button
               type="button"
               onClick={onGoToDashboard}
-              className="shrink-0 rounded-lg bg-accent px-4 py-2 text-sm font-semibold text-white hover:bg-accentHover transition-all duration-250"
+              className="shrink-0 rounded-lg bg-white px-4 py-2 text-sm font-semibold text-primary shadow-sm transition-all duration-300 ease-out hover:bg-white/90"
             >
               Go to dashboard
             </button>
@@ -44,9 +44,9 @@ const LandingScreen = ({
       </header>
 
       <main className="flex-1 max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-10 sm:py-14">
-        <div className="text-center max-w-2xl mx-auto mb-10 sm:mb-12">
-          <h1 className="text-3xl sm:text-4xl font-bold text-textPrimary">Plans &amp; pricing</h1>
-          <p className="mt-3 text-textSecondary text-base sm:text-lg">
+        <div className="mx-auto mb-10 max-w-2xl text-center sm:mb-12">
+          <h1 className="text-3xl font-bold tracking-tight text-textPrimary sm:text-4xl">Plans &amp; pricing</h1>
+          <p className="mt-3 text-base text-textBody sm:text-lg">
             Pick your segment and tier, then continue to a dashboard scoped to that plan — Enterprise for business,
             Government for agencies, Individual for creators and personal safety.
           </p>

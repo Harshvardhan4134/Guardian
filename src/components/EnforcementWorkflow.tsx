@@ -99,10 +99,10 @@ const EnforcementWorkflow = ({ deploymentMode }: EnforcementWorkflowProps) => {
   }
 
   return (
-    <div className="bg-card rounded-xl border border-border p-6">
+    <div className="rounded-xl border border-borderLight bg-cardBg p-6 shadow-card">
       <div className="mb-6">
-        <h2 className="text-xl font-semibold text-textPrimary mb-2">AI Enforcement Workflow</h2>
-        <p className="text-textSecondary">
+        <h2 className="mb-2 text-xl font-semibold tracking-tight text-textPrimary">AI Enforcement Workflow</h2>
+        <p className="text-textBody">
           {deploymentMode === 'individual' &&
             'Tuned for personal accounts and devices — matches Individual Integrations and your policy grid.'}
           {deploymentMode === 'enterprise' &&
@@ -117,7 +117,10 @@ const EnforcementWorkflow = ({ deploymentMode }: EnforcementWorkflowProps) => {
           <h3 className="text-lg font-semibold text-textPrimary mb-4">Workflow Blocks</h3>
           <div className="space-y-4">
             {workflowSteps.map((step) => (
-              <div key={step.number} className="flex items-start space-x-4 p-4 bg-section rounded-lg">
+              <div
+                key={step.number}
+                className="flex items-start space-x-4 rounded-lg border border-borderLight bg-sectionBg p-4"
+              >
                 <div className="w-8 h-8 bg-primary text-white rounded-full flex items-center justify-center text-sm font-semibold">
                   {step.number}
                 </div>
@@ -126,7 +129,7 @@ const EnforcementWorkflow = ({ deploymentMode }: EnforcementWorkflowProps) => {
                     <step.icon className="w-4 h-4 text-primary" />
                     <h4 className="font-semibold text-textPrimary">{step.title}</h4>
                   </div>
-                  <p className="text-sm text-textSecondary">{step.description}</p>
+                  <p className="text-sm text-textBody">{step.description}</p>
                 </div>
               </div>
             ))}
@@ -134,9 +137,9 @@ const EnforcementWorkflow = ({ deploymentMode }: EnforcementWorkflowProps) => {
         </div>
 
         <div>
-          <div className="bg-section rounded-lg p-6">
-            <h3 className="text-lg font-semibold text-textPrimary mb-4">Action Types</h3>
-            <p className="text-textSecondary mb-4">Select enforcement actions to apply when violations are detected:</p>
+          <div className="rounded-lg border border-borderLight bg-sectionBg p-6">
+            <h3 className="mb-4 text-lg font-semibold text-textPrimary">Action Types</h3>
+            <p className="mb-4 text-textBody">Select enforcement actions to apply when violations are detected:</p>
 
             <div className="grid grid-cols-2 gap-3 mb-6 max-h-64 overflow-y-auto pr-1">
               {actionOptions.map((action) => (
@@ -153,10 +156,10 @@ const EnforcementWorkflow = ({ deploymentMode }: EnforcementWorkflowProps) => {
             </div>
 
             <div className="mb-4">
-              <p className="text-sm text-textSecondary mb-2">Selected Actions: {selectedActions.length}</p>
+              <p className="mb-2 text-sm text-textSecondary">Selected Actions: {selectedActions.length}</p>
               <div className="flex flex-wrap gap-2">
                 {selectedActions.map((action) => (
-                  <span key={action} className="bg-primary text-white px-3 py-1 rounded-full text-sm">
+                  <span key={action} className="rounded-full bg-primary px-3 py-1 text-sm text-white">
                     {action}
                   </span>
                 ))}
@@ -166,7 +169,7 @@ const EnforcementWorkflow = ({ deploymentMode }: EnforcementWorkflowProps) => {
             <button
               type="button"
               onClick={handleSaveWorkflow}
-              className="w-full bg-primary text-white py-3 rounded-lg hover:bg-teal-600 transition-colors font-semibold"
+              className="w-full rounded-lg bg-primary py-3 font-semibold text-white transition-colors duration-300 ease-out hover:bg-primaryHover"
             >
               Save Workflow Configuration
             </button>
@@ -175,18 +178,18 @@ const EnforcementWorkflow = ({ deploymentMode }: EnforcementWorkflowProps) => {
             )}
           </div>
 
-          <div className="mt-6 bg-purple-50 border border-purple-200 rounded-lg p-4">
-            <div className="flex items-center space-x-2 mb-3">
-              <div className="w-6 h-6 bg-purple-600 rounded-full flex items-center justify-center">
-                <CheckCircle className="w-4 h-4 text-white" />
+          <div className="mt-6 rounded-lg border border-borderLight bg-white p-4 shadow-sm">
+            <div className="mb-3 flex items-center space-x-2">
+              <div className="flex h-6 w-6 items-center justify-center rounded-full bg-primary">
+                <CheckCircle className="h-4 w-4 text-white" />
               </div>
-              <h4 className="font-semibold text-textPrimary">Trust & System Labels</h4>
+              <h4 className="font-semibold text-textPrimary">Trust &amp; system labels</h4>
             </div>
             <ul className="space-y-2">
               {trustFeatures.map((feature, index) => (
                 <li key={index} className="flex items-center space-x-2">
-                  <div className="w-2 h-2 bg-purple-600 rounded-full"></div>
-                  <span className="text-sm text-textPrimary">{feature}</span>
+                  <div className="h-2 w-2 shrink-0 rounded-full bg-accent" aria-hidden />
+                  <span className="text-sm text-textBody">{feature}</span>
                 </li>
               ))}
             </ul>

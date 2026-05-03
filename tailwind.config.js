@@ -7,27 +7,27 @@ export default {
   theme: {
     extend: {
       colors: {
-        // Primary (Deep Navy)
+        // Primary (Deep Navy) — navbar, primary buttons, headings, footer
         primary: '#0B1F3A',
         primaryHover: '#0F2A4D',
-        
-        // Accent (Bright AI Blue)
+
+        // Accent (Bright AI blue) — highlights, links, active states only
         accent: '#2563EB',
         accentHover: '#1D4ED8',
-        
+
         // Backgrounds
         background: '#FFFFFF',
         sectionBg: '#F8FAFC',
         cardBg: '#EEF2F7',
-        
-        // Text & Greys
+
+        // Text & greys
         textPrimary: '#0F172A',
         textBody: '#334155',
         textSecondary: '#64748B',
         border: '#CBD5E1',
         borderLight: '#E2E8F0',
-        
-        // Legacy support (will be phased out)
+
+        // Legacy aliases
         card: '#EEF2F7',
         section: '#F8FAFC',
         footer: '#0B1F3A'
@@ -36,12 +36,18 @@ export default {
         sans: ['Inter', 'sans-serif']
       },
       boxShadow: {
-        'card': '0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06)',
-        'card-hover': '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
+        // Soft elevation for cards
+        card: '0 1px 2px 0 rgba(15, 23, 42, 0.05), 0 1px 3px 0 rgba(15, 23, 42, 0.08)',
+        'card-hover': '0 2px 8px 0 rgba(15, 23, 42, 0.06), 0 2px 4px 0 rgba(15, 23, 42, 0.06)',
       },
       transitionDuration: {
-        '250': '250ms',
-      }
+        200: '200ms',
+        250: '250ms',
+        300: '300ms',
+      },
+      transitionTimingFunction: {
+        smooth: 'ease',
+      },
     },
   },
   plugins: [],

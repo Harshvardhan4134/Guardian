@@ -29,19 +29,19 @@ const modeHeaderCopy: Record<
   individual: {
     title: 'Personal policy enforcement',
     description: 'Policies scoped to Individual mode — accounts, devices, and alerts from your Integrations view.',
-    bannerClass: 'bg-blue-50 border-blue-200 text-blue-900',
+    bannerClass: 'bg-sectionBg border-borderLight',
     bannerTitle: 'Individual focus'
   },
   enterprise: {
     title: 'Enterprise policy enforcement',
     description: 'Policies for platforms, workforce tools, and APIs connected under Enterprise in Integrations.',
-    bannerClass: 'bg-green-50 border-green-200 text-green-900',
+    bannerClass: 'bg-sectionBg border-borderLight',
     bannerTitle: 'Enterprise focus'
   },
   government: {
     title: 'Government policy enforcement',
     description: 'High-priority policies aligned to national monitoring, feeds, and agency handoffs from Integrations.',
-    bannerClass: 'bg-red-50 border-red-200 text-red-900',
+    bannerClass: 'bg-sectionBg border-borderLight',
     bannerTitle: 'Government focus'
   }
 }
@@ -90,19 +90,19 @@ const PolicyTable = ({ policies, onUpdatePolicy, deploymentMode }: PolicyTablePr
         : integrationModeData.individual.goal
 
   return (
-    <div className="bg-card rounded-xl border border-border overflow-hidden">
-      <div className="p-6 border-b border-border">
-        <div
-          className={`mb-4 rounded-lg border px-4 py-3 text-sm ${header.bannerClass}`}
-        >
-          <span className="font-semibold">{header.bannerTitle} · {deploymentModeLabel(deploymentMode)}</span>
-          <span className="mx-2 opacity-60">|</span>
-          <span className="opacity-90">{modeGoal}</span>
+    <div className="overflow-hidden rounded-xl border border-borderLight bg-cardBg shadow-card">
+      <div className="border-b border-borderLight p-6">
+        <div className={`mb-4 rounded-lg border px-4 py-3 text-sm ${header.bannerClass}`}>
+          <span className="font-semibold text-textPrimary">
+            {header.bannerTitle} · {deploymentModeLabel(deploymentMode)}
+          </span>
+          <span className="mx-2 text-textSecondary">|</span>
+          <span className="text-textBody">{modeGoal}</span>
         </div>
-        <div className="flex items-center justify-between mb-4">
+        <div className="mb-4 flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
           <div>
-            <h2 className="text-xl font-semibold text-textPrimary">{header.title}</h2>
-            <p className="text-textSecondary">{header.description}</p>
+            <h2 className="text-xl font-semibold tracking-tight text-textPrimary">{header.title}</h2>
+            <p className="text-textBody">{header.description}</p>
           </div>
           <div className="flex items-center space-x-3">
             <div className="relative">
@@ -133,7 +133,7 @@ const PolicyTable = ({ policies, onUpdatePolicy, deploymentMode }: PolicyTablePr
 
       <div className="overflow-x-auto">
         <table className="w-full">
-          <thead className="bg-section">
+          <thead className="bg-sectionBg">
             <tr>
               <th className="text-left px-6 py-4 text-sm font-semibold text-textPrimary">POLICY NAME</th>
               <th className="text-left px-6 py-4 text-sm font-semibold text-textPrimary">AI MODELS APPLIED</th>

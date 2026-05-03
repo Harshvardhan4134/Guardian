@@ -31,20 +31,20 @@ const Footer = () => {
           {/* Logo and Tagline */}
           <div className="lg:col-span-2">
             <div className="flex items-center space-x-3 mb-4">
-              <div className="w-10 h-10 bg-accent rounded-lg flex items-center justify-center">
-                <Shield className="w-6 h-6 text-white" />
+              <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-white/15 ring-1 ring-white/20">
+                <Shield className="h-6 w-6 text-white" />
               </div>
               <span className="text-xl font-bold">Guardian AI</span>
             </div>
-            <p className="text-white/80 mb-6">
-              Real-time AI detection, enforcement, and audit intelligence
+            <p className="mb-6 text-white/80">
+              Real-time <span className="font-medium text-accent">AI</span> detection, enforcement, and audit intelligence
             </p>
             <div className="flex space-x-4">
               {socialIcons.map((social, index) => (
                 <a 
                   key={index}
                   href={social.href}
-                  className="w-10 h-10 bg-white/10 rounded-lg flex items-center justify-center hover:bg-white/20 transition-all duration-250"
+                  className="flex h-10 w-10 items-center justify-center rounded-lg bg-white/10 transition-all duration-300 ease-out hover:bg-white/20"
                 >
                   <social.icon className="w-5 h-5" />
                 </a>
@@ -61,7 +61,7 @@ const Footer = () => {
                   <li key={linkIndex}>
                     <a 
                       href="#" 
-                      className="text-white/70 hover:text-white transition-all duration-250 text-sm"
+                      className="text-sm text-white/70 transition-colors duration-300 ease-out hover:text-accent"
                     >
                       {link}
                     </a>
@@ -77,13 +77,13 @@ const Footer = () => {
             © 2026 Guardian AI. All rights reserved.
           </p>
           <div className="flex space-x-6 mt-4 md:mt-0">
-            <a href="#" className="text-white/60 hover:text-white text-sm transition-all duration-250">
+            <a href="#" className="text-sm text-white/60 transition-colors duration-300 ease-out hover:text-accent">
               Privacy Policy
             </a>
-            <a href="#" className="text-white/60 hover:text-white text-sm transition-all duration-250">
+            <a href="#" className="text-sm text-white/60 transition-colors duration-300 ease-out hover:text-accent">
               Terms of Service
             </a>
-            <a href="#" className="text-white/60 hover:text-white text-sm transition-all duration-250">
+            <a href="#" className="text-sm text-white/60 transition-colors duration-300 ease-out hover:text-accent">
               Cookie Policy
             </a>
           </div>

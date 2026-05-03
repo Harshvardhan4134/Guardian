@@ -241,29 +241,29 @@ const ExportModal = ({ onClose, deploymentMode }: ExportModalProps) => {
                     key={dataType.id} 
                     className={`relative border rounded-xl p-4 cursor-pointer transition-all duration-250 hover:shadow-card ${
                       isSelected 
-                        ? `border-accent bg-accent/5 shadow-card` 
-                        : 'border-borderLight bg-cardBg hover:border-accent/30'
+                        ? `border-primary bg-primary/5 shadow-card` 
+                        : 'border-borderLight bg-cardBg hover:border-primary/30'
                     }`}
                     onClick={() => toggleDataType(dataType.name)}
                   >
                     {dataType.isNew && (
-                      <div className="absolute -top-2 -right-2 bg-accent text-white text-xs px-2 py-1 rounded-full font-medium">
+                      <div className="absolute -top-2 -right-2 bg-primary text-white text-xs px-2 py-1 rounded-full font-medium">
                         NEW
                       </div>
                     )}
                     <div className="flex items-start space-x-3">
                       <div className={`w-10 h-10 rounded-lg flex items-center justify-center ${
-                        isSelected ? 'bg-accent/10' : 'bg-sectionBg'
+                        isSelected ? 'bg-primary/10' : 'bg-sectionBg'
                       }`}>
                         <dataType.icon className={`w-5 h-5 ${
-                          isSelected ? 'text-accent' : 'text-textSecondary'
+                          isSelected ? 'text-primary' : 'text-textSecondary'
                         }`} />
                       </div>
                       <div className="flex-1">
                         <div className="flex items-center space-x-2">
                           <h4 className="font-semibold text-textPrimary">{dataType.name}</h4>
                           {isSelected && (
-                            <CheckCircle className="w-4 h-4 text-accent" />
+                            <CheckCircle className="w-4 h-4 text-primary" />
                           )}
                         </div>
                         <p className="text-sm text-textSecondary mt-1">{dataType.description}</p>
@@ -288,8 +288,8 @@ const ExportModal = ({ onClose, deploymentMode }: ExportModalProps) => {
                   key={format.value} 
                   className={`flex flex-col items-center p-4 border rounded-xl cursor-pointer transition-all duration-250 hover:shadow-card ${
                     exportFormat === format.value 
-                      ? 'border-accent bg-accent/5' 
-                      : 'border-borderLight bg-cardBg hover:border-accent/30'
+                      ? 'border-primary bg-primary/5' 
+                      : 'border-borderLight bg-cardBg hover:border-primary/30'
                   }`}
                 >
                   <input
@@ -305,7 +305,7 @@ const ExportModal = ({ onClose, deploymentMode }: ExportModalProps) => {
                     <div className="text-xs text-textSecondary mt-1">{format.description}</div>
                   </div>
                   {exportFormat === format.value && (
-                    <CheckCircle className="w-4 h-4 text-accent mt-2" />
+                    <CheckCircle className="w-4 h-4 text-primary mt-2" />
                   )}
                 </label>
               ))}
@@ -326,7 +326,7 @@ const ExportModal = ({ onClose, deploymentMode }: ExportModalProps) => {
                   <select 
                     value={dateRange}
                     onChange={(e) => setDateRange(e.target.value)}
-                    className="w-full border border-borderLight rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-accent bg-background"
+                    className="w-full border border-borderLight rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary bg-background"
                   >
                     <option value="last-7-days">Last 7 days</option>
                     <option value="last-30-days">Last 30 days</option>
@@ -340,14 +340,14 @@ const ExportModal = ({ onClose, deploymentMode }: ExportModalProps) => {
                         type="date"
                         value={customDateStart}
                         onChange={(e) => setCustomDateStart(e.target.value)}
-                        className="border border-borderLight rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-accent bg-background"
+                        className="border border-borderLight rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary bg-background"
                         placeholder="Start date"
                       />
                       <input
                         type="date"
                         value={customDateEnd}
                         onChange={(e) => setCustomDateEnd(e.target.value)}
-                        className="border border-borderLight rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-accent bg-background"
+                        className="border border-borderLight rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary bg-background"
                         placeholder="End date"
                       />
                     </div>
@@ -366,7 +366,7 @@ const ExportModal = ({ onClose, deploymentMode }: ExportModalProps) => {
                   <select 
                     value={modeFilter}
                     onChange={(e) => setModeFilter(e.target.value)}
-                    className="w-full border border-borderLight rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-accent bg-background"
+                    className="w-full border border-borderLight rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary bg-background"
                   >
                     <option value="all">All Modes</option>
                     <option value="individual">Individual</option>
@@ -381,7 +381,7 @@ const ExportModal = ({ onClose, deploymentMode }: ExportModalProps) => {
                   <select 
                     value={riskLevelFilter}
                     onChange={(e) => setRiskLevelFilter(e.target.value)}
-                    className="w-full border border-borderLight rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-accent bg-background"
+                    className="w-full border border-borderLight rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary bg-background"
                   >
                     <option value="all">All Levels</option>
                     <option value="low">Low</option>
@@ -407,15 +407,15 @@ const ExportModal = ({ onClose, deploymentMode }: ExportModalProps) => {
             </p>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
               <div className="flex items-center space-x-2">
-                <Eye className="w-4 h-4 text-accent" />
+                <Eye className="w-4 h-4 text-primary" />
                 <span className="text-sm text-textBody">Multimodal Analysis Layer</span>
               </div>
               <div className="flex items-center space-x-2">
-                <Shield className="w-4 h-4 text-accent" />
+                <Shield className="w-4 h-4 text-primary" />
                 <span className="text-sm text-textBody">Policy Enforcement Center</span>
               </div>
               <div className="flex items-center space-x-2">
-                <Activity className="w-4 h-4 text-accent" />
+                <Activity className="w-4 h-4 text-primary" />
                 <span className="text-sm text-textBody">Auto-Enforcement Engine</span>
               </div>
             </div>
@@ -427,7 +427,7 @@ const ExportModal = ({ onClose, deploymentMode }: ExportModalProps) => {
             <div className="text-sm text-textSecondary">
               Selected: {selectedDataTypes.length} data type{selectedDataTypes.length !== 1 ? 's' : ''}
               {selectedDataTypes.length > 0 && (
-                <span className="ml-2 text-accent">
+                <span className="ml-2 text-primary">
                   ({selectedDataTypes.join(', ')})
                 </span>
               )}
@@ -466,10 +466,10 @@ const ExportModal = ({ onClose, deploymentMode }: ExportModalProps) => {
           </div>
           
           {isExporting && (
-            <div className="mt-4 p-3 bg-accent/5 border border-accent/20 rounded-lg">
+            <div className="mt-4 p-3 bg-primary/5 border border-primary/20 rounded-lg">
               <div className="flex items-center space-x-2">
-                <Loader2 className="w-4 h-4 animate-spin text-accent" />
-                <span className="text-sm text-accent">
+                <Loader2 className="w-4 h-4 animate-spin text-primary" />
+                <span className="text-sm text-primary">
                   Processing export... This may take a few moments.
                 </span>
               </div>
