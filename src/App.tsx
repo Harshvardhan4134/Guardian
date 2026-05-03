@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import Header from './components/Header'
 import GlobalBanner from './components/GlobalBanner'
 import AIModelsCard from './components/AIModelsCard'
@@ -10,20 +10,56 @@ import ExportModal from './components/ExportModal'
 import CreatePolicyModal from './components/CreatePolicyModal'
 import IntegrationsModal from './components/IntegrationsModal'
 import ChatWidget from './components/ChatWidget'
-import DeploymentModeSwitcher from './components/DeploymentModeSwitcher'
+import LandingScreen from './components/LandingScreen'
+import SettingsModal from './components/SettingsModal'
 import { defaultPoliciesByMode } from './data/defaultPoliciesByMode'
+import { defaultTierIdForSegment, tierBelongsToSegment } from './data/pricingPlans'
+import { loadPersistedPlan, savePersistedPlan } from './lib/planStorage'
 import type { DeploymentMode } from './types/deploymentMode'
 
+type AppView = 'landing' | 'dashboard'
+
 function App() {
+  const [hydrated, setHydrated] = useState(false)
+  const [appView, setAppView] = useState<AppView>('landing')
   const [deploymentMode, setDeploymentMode] = useState<DeploymentMode>('individual')
+  const [tierId, setTierId] = useState<string>(() => defaultTierIdForSegment('individual'))
+  const [pricingSegment, setPricingSegment] = useState<DeploymentMode>('individual')
   const [showExportModal, setShowExportModal] = useState(false)
   const [showCreatePolicyModal, setShowCreatePolicyModal] = useState(false)
   const [showIntegrationsModal, setShowIntegrationsModal] = useState(false)
+  const [showSettingsModal, setShowSettingsModal] = useState(false)
+  const [hasCompletedOnboarding, setHasCompletedOnboarding] = useState(false)
+  const prevAppViewRef = useRef<AppView | null>(null)
   const [policiesByMode, setPoliciesByMode] = useState<Record<DeploymentMode, Policy[]>>(() => ({
     individual: defaultPoliciesByMode.individual.map((p) => ({ ...p })),
     enterprise: defaultPoliciesByMode.enterprise.map((p) => ({ ...p })),
     government: defaultPoliciesByMode.government.map((p) => ({ ...p }))
   }))
+
+  useEffect(() => {
+    const saved = loadPersistedPlan()
+    if (saved) {
+      const tierOk = tierBelongsToSegment(saved.tierId, saved.segment)
+      const resolvedTier = tierOk ? saved.tierId : defaultTierIdForSegment(saved.segment)
+      setDeploymentMode(saved.segment)
+      setTierId(resolvedTier)
+      setPricingSegment(saved.segment)
+      setHasCompletedOnboarding(saved.onboarded)
+      if (saved.onboarded) {
+        setAppView('dashboard')
+      }
+    }
+    setHydrated(true)
+  }, [])
+
+  useEffect(() => {
+    const prev = prevAppViewRef.current
+    if (appView === 'landing' && prev === 'dashboard') {
+      setPricingSegment(deploymentMode)
+    }
+    prevAppViewRef.current = appView
+  }, [appView, deploymentMode])
 
   const policies = policiesByMode[deploymentMode]
 
@@ -43,6 +79,52 @@ function App() {
     updatePoliciesForCurrentMode((prev) => prev.map((policy) => (policy.id === updated.id ? updated : policy)))
   }
 
+  const applyPlan = (segment: DeploymentMode, nextTierId: string, options: { goToDashboard: boolean }) => {
+    setDeploymentMode(segment)
+    setTierId(nextTierId)
+    setHasCompletedOnboarding(true)
+    savePersistedPlan({
+      segment,
+      tierId: nextTierId,
+      onboarded: true
+    })
+    if (options.goToDashboard) {
+      setAppView('dashboard')
+    }
+  }
+
+  const handleLandingConfirmPlan = (segment: DeploymentMode, nextTierId: string) => {
+    applyPlan(segment, nextTierId, { goToDashboard: true })
+  }
+
+  const handleSettingsPlanChange = (segment: DeploymentMode, nextTierId: string) => {
+    applyPlan(segment, nextTierId, { goToDashboard: false })
+  }
+
+  if (!hydrated) {
+    return (
+      <div className="min-h-screen bg-background flex items-center justify-center text-textSecondary text-sm">
+        Loading…
+      </div>
+    )
+  }
+
+  if (appView === 'landing') {
+    return (
+      <>
+        <LandingScreen
+          planSegment={pricingSegment}
+          onPlanSegmentChange={setPricingSegment}
+          activeTierId={tierId}
+          onConfirmPlan={handleLandingConfirmPlan}
+          isOnboarded={hasCompletedOnboarding}
+          onGoToDashboard={() => setAppView('dashboard')}
+        />
+        <ChatWidget />
+      </>
+    )
+  }
+
   return (
     <div className="min-h-screen bg-background font-sans">
       <GlobalBanner />
@@ -50,10 +132,12 @@ function App() {
         onExportClick={() => setShowExportModal(true)}
         onIntegrationsClick={() => setShowIntegrationsModal(true)}
         onCreatePolicyClick={() => setShowCreatePolicyModal(true)}
+        onHomeClick={() => setAppView('landing')}
+        onSettingsClick={() => setShowSettingsModal(true)}
+        activeTierId={tierId}
       />
 
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
-        <DeploymentModeSwitcher value={deploymentMode} onChange={setDeploymentMode} />
         <AIModelsCard deploymentMode={deploymentMode} />
         <StatsCards deploymentMode={deploymentMode} policies={policies} />
         <PolicyTable
@@ -84,6 +168,15 @@ function App() {
           onClose={() => setShowCreatePolicyModal(false)}
           onPolicyCreated={handlePolicyCreated}
           deploymentMode={deploymentMode}
+        />
+      )}
+
+      {showSettingsModal && (
+        <SettingsModal
+          onClose={() => setShowSettingsModal(false)}
+          deploymentMode={deploymentMode}
+          activeTierId={tierId}
+          onPlanChanged={handleSettingsPlanChange}
         />
       )}
     </div>

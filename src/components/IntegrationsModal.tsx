@@ -1,8 +1,8 @@
-import React, { useEffect, useMemo, useState } from 'react'
+import React, { useMemo, useState } from 'react'
 import { ArrowLeft, Plus, Wifi, Activity, Database, Zap } from 'lucide-react'
 import { IndividualModeContent, EnterpriseModeContent, GovernmentModeContent } from './IntegrationModes'
 import { WebhooksSection, SecurityLayer } from './IntegrationComponents'
-import { integrationModeData } from '../data/integrationModeData'
+import { integrationModeData, deploymentModeLabel } from '../data/integrationModeData'
 import type { DeploymentMode } from '../types/deploymentMode'
 
 interface IntegrationsModalProps {
@@ -29,11 +29,6 @@ interface CustomIntegration {
 }
 
 const IntegrationsModal = ({ onClose, initialMode = 'individual' }: IntegrationsModalProps) => {
-  const [activeMode, setActiveMode] = useState<DeploymentMode>(initialMode)
-
-  useEffect(() => {
-    setActiveMode(initialMode)
-  }, [initialMode])
   const [webhooks, setWebhooks] = useState<Webhook[]>([
     {
       id: 'WH-001',
@@ -197,7 +192,11 @@ const IntegrationsModal = ({ onClose, initialMode = 'individual' }: Integrations
               </button>
               <div>
                 <h2 className="text-2xl font-semibold text-textPrimary">Integrations</h2>
-                <p className="text-textSecondary">Connect platforms, devices, and systems for real-time AI detection and enforcement</p>
+                <p className="text-textSecondary">
+                  Connect platforms, devices, and systems for real-time AI detection and enforcement. Showing your{' '}
+                  <span className="font-medium text-textPrimary">{deploymentModeLabel(initialMode)}</span> integrations
+                  only — change plan from Home or Settings.
+                </p>
               </div>
             </div>
           </div>
@@ -222,27 +221,8 @@ const IntegrationsModal = ({ onClose, initialMode = 'individual' }: Integrations
             ))}
           </div>
 
-          {/* Mode Switcher */}
-          <div className="mb-8">
-            <div className="flex space-x-1 bg-sectionBg rounded-lg p-1 border border-borderLight">
-              {['individual', 'enterprise', 'government'].map((mode) => (
-                <button
-                  key={mode}
-                  onClick={() => setActiveMode(mode)}
-                  className={`flex-1 px-4 py-2 rounded-md text-sm font-medium transition-all duration-250 ${
-                    activeMode === mode
-                      ? 'bg-background text-textPrimary shadow-card'
-                      : 'text-textSecondary hover:text-textPrimary'
-                  }`}
-                >
-                  {mode.charAt(0).toUpperCase() + mode.slice(1)}
-                </button>
-              ))}
-            </div>
-          </div>
-
-          {/* Mode-Specific Content */}
-          {activeMode === 'individual' && (
+          {/* Mode-Specific Content — scoped to active subscription plan */}
+          {initialMode === 'individual' && (
             <IndividualModeContent 
               modeData={integrationModeData.individual} 
               webhooks={webhooks}
@@ -253,7 +233,7 @@ const IntegrationsModal = ({ onClose, initialMode = 'individual' }: Integrations
             />
           )}
 
-          {activeMode === 'enterprise' && (
+          {initialMode === 'enterprise' && (
             <EnterpriseModeContent 
               modeData={integrationModeData.enterprise}
               webhooks={webhooks}
@@ -264,7 +244,7 @@ const IntegrationsModal = ({ onClose, initialMode = 'individual' }: Integrations
             />
           )}
 
-          {activeMode === 'government' && (
+          {initialMode === 'government' && (
             <GovernmentModeContent 
               modeData={integrationModeData.government}
               webhooks={webhooks}
