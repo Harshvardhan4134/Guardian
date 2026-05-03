@@ -10,39 +10,96 @@ import {
   Database
 } from 'lucide-react'
 import type { DeploymentMode } from '../types/deploymentMode'
+import type { PlatformBrandId } from '../types/platformBrand'
+
+type IndividualPlatform = {
+  name: string
+  brand: PlatformBrandId
+  status: string
+  lastSync: string
+  isConnected: boolean
+}
+
+type EnterprisePlatform = {
+  name: string
+  brand: PlatformBrandId
+  status: string
+  lastSync: string
+  isConnected: boolean
+}
 
 /** Shared with Integrations modal and main dashboard copy. */
 export const integrationModeData = {
   individual: {
     goal: 'Personal device and account safety through AI-driven monitoring',
     platforms: [
-      { name: 'Instagram', icon: '📷', status: 'Connected', lastSync: '2 min ago', isConnected: true },
-      { name: 'WhatsApp', icon: '💚', status: 'Connected', lastSync: '5 min ago', isConnected: true },
-      { name: 'Telegram', icon: '✈️', status: 'Connected', lastSync: '1 min ago', isConnected: true },
-      { name: 'X (Twitter)', icon: '🐦', status: 'Disconnected', lastSync: '—', isConnected: false },
-      { name: 'YouTube', icon: '📺', status: 'Connected', lastSync: '3 min ago', isConnected: true }
-    ],
+      {
+        name: 'Instagram',
+        brand: 'instagram',
+        status: 'Connected',
+        lastSync: '2 min ago',
+        isConnected: true
+      },
+      {
+        name: 'Facebook',
+        brand: 'facebook',
+        status: 'Connected',
+        lastSync: '4 min ago',
+        isConnected: true
+      },
+      {
+        name: 'WhatsApp',
+        brand: 'whatsapp',
+        status: 'Connected',
+        lastSync: '5 min ago',
+        isConnected: true
+      },
+      {
+        name: 'Telegram',
+        brand: 'telegram',
+        status: 'Connected',
+        lastSync: '1 min ago',
+        isConnected: true
+      },
+      {
+        name: 'X (Twitter)',
+        brand: 'x',
+        status: 'Disconnected',
+        lastSync: '—',
+        isConnected: false
+      },
+      {
+        name: 'YouTube',
+        brand: 'youtube',
+        status: 'Connected',
+        lastSync: '3 min ago',
+        isConnected: true
+      }
+    ] satisfies IndividualPlatform[],
     devices: [
       {
         name: 'Mobile Device',
         status: 'Connected',
         os: 'Android / iOS',
         features: ['App scanning', 'Media analysis', 'Real-time alerts'],
-        icon: Smartphone
+        icon: Smartphone,
+        browserStack: false as const
       },
       {
         name: 'Desktop / Laptop',
         status: 'Connected',
         os: 'Windows / Mac',
         features: ['File scanning', 'Browser monitoring', 'Activity detection'],
-        icon: Monitor
+        icon: Monitor,
+        browserStack: false as const
       },
       {
         name: 'Browser Extension',
         status: 'Connected',
-        os: 'Chrome / Edge / Safari',
-        features: ['Detect harmful content in real time'],
-        icon: Globe
+        os: 'Chrome · Edge · Safari',
+        features: ['Install once per browser', 'Real-time page & media scanning', 'Syncs with your Guardian policies'],
+        icon: Globe,
+        browserStack: true as const
       }
     ],
     actions: ['Notify user', 'Block harmful content', 'Alert on risky behavior']
@@ -50,11 +107,35 @@ export const integrationModeData = {
   enterprise: {
     goal: 'Platform moderation and internal system control for brand and data safety',
     platforms: [
-      { name: 'Instagram API', icon: '📷', status: 'Connected', lastSync: '2 min ago', isConnected: true },
-      { name: 'YouTube Moderation API', icon: '📺', status: 'Connected', lastSync: '5 min ago', isConnected: true },
-      { name: 'Discord / Slack', icon: '💬', status: 'Connected', lastSync: '1 min ago', isConnected: true },
-      { name: 'Community Platforms', icon: '👥', status: 'Disconnected', lastSync: '—', isConnected: false }
-    ],
+      {
+        name: 'Instagram API',
+        brand: 'instagram',
+        status: 'Connected',
+        lastSync: '2 min ago',
+        isConnected: true
+      },
+      {
+        name: 'YouTube Moderation API',
+        brand: 'youtube',
+        status: 'Connected',
+        lastSync: '5 min ago',
+        isConnected: true
+      },
+      {
+        name: 'Discord / Slack',
+        brand: 'discord_slack',
+        status: 'Connected',
+        lastSync: '1 min ago',
+        isConnected: true
+      },
+      {
+        name: 'Community Platforms',
+        brand: 'community',
+        status: 'Disconnected',
+        lastSync: '—',
+        isConnected: false
+      }
+    ] satisfies EnterprisePlatform[],
     systems: [
       { name: 'Website CMS', type: 'REST API', status: 'Connected', icon: Globe },
       { name: 'Mobile App SDK', type: 'SDK', status: 'Connected', icon: Smartphone },

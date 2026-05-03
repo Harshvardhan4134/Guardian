@@ -1,5 +1,7 @@
 import React, { useState } from 'react'
 import { Smartphone, Monitor, Globe, Shield, AlertTriangle, Eye, Database, Plus, Settings, RotateCcw, Trash2 } from 'lucide-react'
+import SocialPlatformLogo from './integration/SocialPlatformLogo'
+import BrowserExtensionVisual from './integration/BrowserExtensionVisual'
 
 // Simple Add Webhook Modal Component
 const SimpleAddWebhookModal = ({ onClose, onAdd }: { onClose: () => void, onAdd: (data: any) => void }) => {
@@ -138,14 +140,14 @@ export const IndividualModeContent = ({
           {platforms.map((platform: any, index: number) => (
             <div key={index} className="bg-card rounded-xl p-4 border border-border">
               <div className="flex items-center justify-between mb-3">
-                <div className="flex items-center space-x-3">
-                  <div className="text-xl">{platform.icon}</div>
-                  <div>
+                <div className="flex items-center space-x-3 min-w-0">
+                  <SocialPlatformLogo brand={platform.brand} />
+                  <div className="min-w-0">
                     <h4 className="font-semibold text-textPrimary">{platform.name}</h4>
                     <p className="text-xs text-textSecondary">Last sync: {platform.lastSync}</p>
                   </div>
                 </div>
-                <span className={`px-2 py-1 rounded-full text-xs font-medium ${getStatusColor(platform.status)}`}>
+                <span className={`px-2 py-1 rounded-full text-xs font-medium shrink-0 ${getStatusColor(platform.status)}`}>
                   {platform.status}
                 </span>
               </div>
@@ -177,13 +179,21 @@ export const IndividualModeContent = ({
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           {devices.map((device: any, index: number) => (
             <div key={index} className="bg-card rounded-xl p-4 border border-border">
-              <div className="text-center mb-4">
-                <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-2">
-                  <device.icon className="w-6 h-6 text-primary" />
+              {device.browserStack ? (
+                <>
+                  <BrowserExtensionVisual />
+                  <h4 className="font-semibold text-textPrimary text-center">{device.name}</h4>
+                  <p className="text-sm text-textSecondary text-center mb-4">{device.os}</p>
+                </>
+              ) : (
+                <div className="text-center mb-4">
+                  <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-2">
+                    <device.icon className="w-6 h-6 text-primary" />
+                  </div>
+                  <h4 className="font-semibold text-textPrimary">{device.name}</h4>
+                  <p className="text-sm text-textSecondary">{device.os}</p>
                 </div>
-                <h4 className="font-semibold text-textPrimary">{device.name}</h4>
-                <p className="text-sm text-textSecondary">{device.os}</p>
-              </div>
+              )}
               <div className="space-y-2 mb-4">
                 {device.features.map((feature: string, idx: number) => (
                   <div key={idx} className="text-xs text-textSecondary flex items-center space-x-1">
@@ -389,14 +399,14 @@ export const EnterpriseModeContent = ({
           {platforms.map((platform: any, index: number) => (
             <div key={index} className="bg-card rounded-xl p-4 border border-border">
               <div className="flex items-center justify-between mb-3">
-                <div className="flex items-center space-x-3">
-                  <div className="text-xl">{platform.icon}</div>
-                  <div>
+                <div className="flex items-center space-x-3 min-w-0">
+                  <SocialPlatformLogo brand={platform.brand} />
+                  <div className="min-w-0">
                     <h4 className="font-semibold text-textPrimary">{platform.name}</h4>
                     <p className="text-xs text-textSecondary">Last sync: {platform.lastSync}</p>
                   </div>
                 </div>
-                <span className={`px-2 py-1 rounded-full text-xs font-medium ${getStatusColor(platform.status)}`}>
+                <span className={`px-2 py-1 rounded-full text-xs font-medium shrink-0 ${getStatusColor(platform.status)}`}>
                   {platform.status}
                 </span>
               </div>

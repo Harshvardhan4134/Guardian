@@ -1,0 +1,11 @@
+export type PlatformBrandId =
+  | 'instagram'
+  | 'whatsapp'
+  | 'facebook'
+  | 'x'
+  | 'youtube'
+  | 'telegram'
+  | 'discord'
+  | 'slack'
+  | 'discord_slack'
+  | 'community'
