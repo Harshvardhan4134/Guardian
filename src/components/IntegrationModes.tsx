@@ -174,43 +174,56 @@ export const IndividualModeContent = ({
       </div>
 
       {/* Your Devices */}
-      <div>
-        <h3 className="text-xl font-semibold text-textPrimary mb-4">Your Devices</h3>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          {devices.map((device: any, index: number) => (
-            <div key={index} className="bg-card rounded-xl p-4 border border-border">
-              {device.browserStack ? (
-                <>
-                  <BrowserExtensionVisual />
-                  <h4 className="font-semibold text-textPrimary text-center">{device.name}</h4>
-                  <p className="text-sm text-textSecondary text-center mb-4">{device.os}</p>
-                </>
-              ) : (
-                <div className="text-center mb-4">
-                  <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-2">
-                    <device.icon className="w-6 h-6 text-primary" />
-                  </div>
-                  <h4 className="font-semibold text-textPrimary">{device.name}</h4>
-                  <p className="text-sm text-textSecondary">{device.os}</p>
-                </div>
-              )}
-              <div className="space-y-2 mb-4">
-                {device.features.map((feature: string, idx: number) => (
-                  <div key={idx} className="text-xs text-textSecondary flex items-center space-x-1">
-                    <div className="w-1 h-1 bg-primary rounded-full"></div>
-                    <span>{feature}</span>
-                  </div>
-                ))}
-              </div>
-              <button 
-                onClick={() => handleManageDevice(device.name)}
-                className="w-full bg-primary text-white px-3 py-2 rounded text-sm hover:bg-primaryHover transition-all duration-250"
-              >
-                Manage
-              </button>
-            </div>
-          ))}
+      <div className="scroll-mt-4">
+        <div className="mb-4 sm:mb-5">
+          <h3 className="text-lg font-semibold tracking-tight text-primary sm:text-xl">Your Devices</h3>
+          <p className="mt-1 max-w-2xl text-sm text-textSecondary">
+            Manage where Guardian runs — mobile apps, desktop agent, or per-browser extension.
+          </p>
         </div>
+        <ul className="grid list-none grid-cols-1 gap-4 p-0 sm:gap-5 lg:grid-cols-3 lg:gap-6">
+          {devices.map((device: any, index: number) => (
+            <li key={index} className="flex h-full min-h-0 list-none">
+              <div className="flex h-full w-full flex-col rounded-2xl border border-borderLight bg-cardBg/90 p-5 shadow-sm ring-1 ring-black/[0.03] transition-shadow duration-250 hover:shadow-card sm:p-6">
+                {device.browserStack ? (
+                  <>
+                    <BrowserExtensionVisual />
+                    <div className="text-center">
+                      <h4 className="text-base font-semibold text-textPrimary sm:text-lg">{device.name}</h4>
+                      <p className="mt-1 text-sm text-textSecondary">{device.os}</p>
+                    </div>
+                  </>
+                ) : (
+                  <div className="mb-5 text-center">
+                    <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-sectionBg ring-1 ring-borderLight/80 sm:h-16 sm:w-16">
+                      <device.icon className="h-7 w-7 text-primary sm:h-8 sm:w-8" strokeWidth={1.75} />
+                    </div>
+                    <h4 className="text-base font-semibold text-textPrimary sm:text-lg">{device.name}</h4>
+                    <p className="mt-1 text-sm text-textSecondary">{device.os}</p>
+                  </div>
+                )}
+                <ul className="mb-6 mt-5 flex-1 space-y-2.5 text-left sm:mt-6">
+                  {device.features.map((feature: string, idx: number) => (
+                    <li key={idx} className="flex gap-3 text-sm leading-snug text-textBody">
+                      <span
+                        className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-primary"
+                        aria-hidden
+                      />
+                      <span>{feature}</span>
+                    </li>
+                  ))}
+                </ul>
+                <button
+                  type="button"
+                  onClick={() => handleManageDevice(device.name)}
+                  className="mt-auto min-h-[44px] w-full rounded-xl bg-primary px-4 py-3 text-sm font-semibold text-white transition-colors duration-250 hover:bg-primaryHover active:bg-primaryHover sm:min-h-0 sm:py-2.5"
+                >
+                  Manage
+                </button>
+              </div>
+            </li>
+          ))}
+        </ul>
       </div>
 
       {/* Individual Actions */}
