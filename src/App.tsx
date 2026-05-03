@@ -11,7 +11,6 @@ import CreatePolicyModal from './components/CreatePolicyModal'
 import IntegrationsModal from './components/IntegrationsModal'
 import ChatWidget from './components/ChatWidget'
 import LandingScreen from './components/LandingScreen'
-import SettingsModal from './components/SettingsModal'
 import { defaultPoliciesByMode } from './data/defaultPoliciesByMode'
 import { defaultTierIdForSegment, tierBelongsToSegment } from './data/pricingPlans'
 import { loadPersistedPlan, savePersistedPlan } from './lib/planStorage'
@@ -28,7 +27,6 @@ function App() {
   const [showExportModal, setShowExportModal] = useState(false)
   const [showCreatePolicyModal, setShowCreatePolicyModal] = useState(false)
   const [showIntegrationsModal, setShowIntegrationsModal] = useState(false)
-  const [showSettingsModal, setShowSettingsModal] = useState(false)
   const [hasCompletedOnboarding, setHasCompletedOnboarding] = useState(false)
   const prevAppViewRef = useRef<AppView | null>(null)
   const [policiesByMode, setPoliciesByMode] = useState<Record<DeploymentMode, Policy[]>>(() => ({
@@ -97,10 +95,6 @@ function App() {
     applyPlan(segment, nextTierId, { goToDashboard: true })
   }
 
-  const handleSettingsPlanChange = (segment: DeploymentMode, nextTierId: string) => {
-    applyPlan(segment, nextTierId, { goToDashboard: false })
-  }
-
   if (!hydrated) {
     return (
       <div className="min-h-screen bg-background flex items-center justify-center text-textSecondary text-sm">
@@ -133,7 +127,6 @@ function App() {
         onIntegrationsClick={() => setShowIntegrationsModal(true)}
         onCreatePolicyClick={() => setShowCreatePolicyModal(true)}
         onHomeClick={() => setAppView('landing')}
-        onSettingsClick={() => setShowSettingsModal(true)}
         activeTierId={tierId}
       />
 
@@ -171,14 +164,6 @@ function App() {
         />
       )}
 
-      {showSettingsModal && (
-        <SettingsModal
-          onClose={() => setShowSettingsModal(false)}
-          deploymentMode={deploymentMode}
-          activeTierId={tierId}
-          onPlanChanged={handleSettingsPlanChange}
-        />
-      )}
     </div>
   )
 }

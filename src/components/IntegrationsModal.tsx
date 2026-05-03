@@ -195,7 +195,7 @@ const IntegrationsModal = ({ onClose, initialMode = 'individual' }: Integrations
                 <p className="text-textSecondary">
                   Connect platforms, devices, and systems for real-time AI detection and enforcement. Showing your{' '}
                   <span className="font-medium text-textPrimary">{deploymentModeLabel(initialMode)}</span> integrations
-                  only — change plan from Home or Settings.
+                  only — change plan from the Home screen.
                 </p>
               </div>
             </div>

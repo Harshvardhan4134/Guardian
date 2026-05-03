@@ -1,5 +1,5 @@
 import React from 'react'
-import { Home, Settings } from 'lucide-react'
+import { Home } from 'lucide-react'
 import { deploymentModeLabel } from '../data/integrationModeData'
 import { findTierById } from '../data/pricingPlans'
 
@@ -8,7 +8,6 @@ interface HeaderProps {
   onIntegrationsClick: () => void
   onCreatePolicyClick: () => void
   onHomeClick: () => void
-  onSettingsClick: () => void
   activeTierId: string
 }
 
@@ -17,7 +16,6 @@ const Header = ({
   onIntegrationsClick,
   onCreatePolicyClick,
   onHomeClick,
-  onSettingsClick,
   activeTierId
 }: HeaderProps) => {
   const resolved = findTierById(activeTierId)
@@ -54,14 +52,6 @@ const Header = ({
           >
             <Home className="h-4 w-4 shrink-0" aria-hidden />
             Home
-          </button>
-          <button
-            type="button"
-            onClick={onSettingsClick}
-            className="inline-flex items-center gap-1.5 border border-white/20 text-white px-3 py-2 rounded-lg hover:bg-white/10 transition-all duration-250 text-sm"
-          >
-            <Settings className="h-4 w-4 shrink-0" aria-hidden />
-            Settings
           </button>
           <button
             type="button"
